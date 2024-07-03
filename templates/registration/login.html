@@ -1,0 +1,52 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Iniciar Sesión
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card transparent-card">
+                <div class="card-header">
+                    <h2 class="card-title">Iniciar Sesión</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">
+                        Bienvenido al Sistema de Gestión de Eventos. 
+                        Aquí puedes gestionar y participar en eventos de manera sencilla y eficiente.
+                    </p>
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            {{ form.username.label_tag }}
+                            <label for="{{ form.username.id_for_label }}"></label><input type="text" name="{{ form.username.name }}" class="form-control{% if form.username.errors %} is-invalid{% endif %}" id="{{ form.username.id_for_label }}" placeholder="{{ form.username.label }}">
+                            {% for error in form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.password.label_tag }}
+                            <label for="{{ form.password.id_for_label }}"></label><input type="password" name="{{ form.password.name }}" class="form-control{% if form.password.errors %} is-invalid{% endif %}" id="{{ form.password.id_for_label }}" placeholder="{{ form.password.label }}">
+                            {% for error in form.password.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

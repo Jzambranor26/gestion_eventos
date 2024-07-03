@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Mis Inscripciones
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">Mis Inscripciones</h2>
+            <ul class="list-group">
+                {% for inscripcion in inscripciones %}
+                    <li class="list-group-item">
+                        <strong>Evento:</strong> {{ inscripcion.evento.nombre }} <br>
+                        <strong>Fecha:</strong> {{ inscripcion.evento.fecha }} <br>
+                        <strong>Lugar:</strong> {{ inscripcion.evento.lugar }} <br>
+                        <a href="{% url 'inscripcion_delete' inscripcion.pk %}" class="btn btn-danger">Eliminar Inscripción</a>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No tienes inscripciones en eventos.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Confirmar Eliminación de Inscripción
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">Confirmar Eliminación de Inscripción</h2>
+            <p>¿Estás seguro de que deseas eliminar la inscripción?</p>
+            <form method="post" action="{% url 'inscripcion_delete' pk=inscripcion.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+                <a href="{% url 'usuario_inscripciones_view' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Detalles del Evento: {{ evento.nombre }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">{{ evento.nombre }}</h2>
+            <p><strong>Descripción:</strong> {{ evento.descripcion }}</p>
+            <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+            <p><strong>Lugar:</strong> {{ evento.ubicacion }}</p> 
+
+            {% if request.user.is_authenticated %}
+                {% if not inscrito %}
+                    <form action="{% url 'inscripcion_create' pk=evento.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary mt-3">Inscribirse</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'inscripcion_delete' pk=inscripcion.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger mt-3">Eliminar Inscripción</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+
+            {% if request.user == evento.creador %}
+                <form action="{% url 'evento_delete' pk=evento.pk %}" method="post" class="mt-3">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar Evento</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+

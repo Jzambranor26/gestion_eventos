@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Eventos
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">Lista de Eventos</h2>
+            <ul class="list-group">
+                {% for evento in eventos %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ evento.nombre }}</span>
+                        <div>
+                            <a href="{% url 'evento_detail' evento.pk %}" class="btn btn-info btn-sm">Ver Detalles</a>
+                            {% if request.user == evento.creador %}
+                                <form action="{% url 'evento_delete' evento.pk %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar Evento</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No hay eventos disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
